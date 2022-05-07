@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import CoreData
 
-class Configurations {
+public class Configurations {
     init(_ colorScheme: ColorScheme) {
         self.colorScheme = colorScheme
     }

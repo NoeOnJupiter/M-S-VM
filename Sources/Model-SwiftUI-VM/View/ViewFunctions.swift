@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension View {
+public extension View {
     var colors: Configurations {
         return Configurations.shared
     }

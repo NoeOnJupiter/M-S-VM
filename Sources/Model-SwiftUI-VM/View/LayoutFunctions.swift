@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension View {
+public extension View {
     var width: CGFloat {
 #if canImport(UIKit)
         return UIScreen.main.bounds.width

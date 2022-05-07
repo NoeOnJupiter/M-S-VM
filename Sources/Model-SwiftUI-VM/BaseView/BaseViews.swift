@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension BaseView {
+public extension BaseView {
     var body: some View {
         GeometryReader { proxy in
             if let contentBody = Configurations.shared.body {

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import CoreData
 
-class ModelData<T: Datable>: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
+public class ModelData<T: Datable>: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
     var publishedData = CurrentValueSubject<[T], Never>([])
     private let fetchController: NSFetchedResultsController<T.Object>
     override init() {
@@ -31,7 +31,7 @@ class ModelData<T: Datable>: NSObject, ObservableObject, NSFetchedResultsControl
     deinit {
         print("deinited")
     }
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         guard let data = controller.fetchedObjects as? [T.Object] else {return}
         self.publishedData.value = data.model()
     }

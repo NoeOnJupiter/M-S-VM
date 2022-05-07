@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class BaseViewModel: NSObject, ObservableObject {
+public class BaseViewModel: NSObject, ObservableObject {
 //MARK: - Properties
 #if canImport(AppKit)
     @Published var width = CGFloat(1000) {

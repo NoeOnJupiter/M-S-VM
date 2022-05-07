@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-protocol Datable {
+public protocol Datable {
     associatedtype Object: NSManagedObject
 //MARK: - Mapping
     static func map(from object: Object) -> Self
@@ -23,7 +23,7 @@ protocol Datable {
     func delete()
 }
 
-extension Datable {
+public extension Datable {
 //MARK: - Mapping
     func map(from object: Object) -> Self {
         return Self.map(from: object)

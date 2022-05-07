@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BaseView: View {
+public struct BaseView: View {
 //MARK: - Properties
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: BaseViewModel

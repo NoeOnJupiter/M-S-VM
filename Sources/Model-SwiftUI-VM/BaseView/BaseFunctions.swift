@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension BaseView {
+public extension BaseView {
     func backgroundHidden() -> BaseView {
         var baseView = self
         baseView.isBackgroundHidden = true
