@@ -11,11 +11,10 @@ public struct BaseView: View {
 //MARK: - Properties
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject public var viewModel: BaseViewModel
-    var bodyContent: AnyView?
-    let content: AnyView
-    var isBackgroundHidden: Bool
+    public let content: AnyView
+    public var isBackgroundHidden: Bool
 #if canImport(AppKit)
-    var size: Bool
+    public var size: Bool
 #endif
 //MARK: - Initializers
     init(_ viewModel: BaseViewModel, @ViewBuilder content: () -> AnyView) {
