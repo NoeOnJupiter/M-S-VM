@@ -10,7 +10,7 @@ import SwiftUI
 public struct BaseView: View {
 //MARK: - Properties
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var viewModel: BaseViewModel
+    @ObservedObject public var viewModel: BaseViewModel
     var bodyContent: AnyView?
     let content: AnyView
     var isBackgroundHidden: Bool
