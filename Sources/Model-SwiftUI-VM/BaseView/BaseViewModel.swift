@@ -32,7 +32,7 @@ public class BaseViewModel: NSObject, ObservableObject {
     @Published public var loading = Loading.stopped
     public var cancellables = Set<AnyCancellable>()
 //MARK: - Initializers
-    required override init() {
+    required override public init() {
     }
 }
 
