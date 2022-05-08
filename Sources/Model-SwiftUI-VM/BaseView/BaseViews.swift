@@ -10,7 +10,7 @@ import SwiftUI
 public extension BaseView {
     var body: some View {
         GeometryReader { proxy in
-            Configurations.shared.body?(self)
+            Configurations.shared.body!(self)
 //            if let contentBody = Configurations.shared.body {
 //                contentBody(self)
 //                    .bindColors(colorScheme)
