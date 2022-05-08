@@ -23,6 +23,8 @@ public extension BaseView {
 //                        fatalError("You should set the content of the Configurations using Configurations.makeBody")
 //                    }
 //            }
+        }.onAppear {
+            print(Configurations.shared.body?(self))
         }
     }
 }
