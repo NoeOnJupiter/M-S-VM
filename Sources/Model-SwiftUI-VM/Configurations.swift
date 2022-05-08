@@ -15,8 +15,8 @@ public class Configurations {
     }
     public static var shared = Configurations(.light)
     public var colorScheme: ColorScheme
-    var body: ((BaseView) -> AnyView)?
-    var managedObjectContext: NSManagedObjectContext?
+    public var body: ((BaseView) -> AnyView)?
+    public var managedObjectContext: NSManagedObjectContext?
 //MARK: - Functions
     public static func makeBody<Content: View>(@ViewBuilder body: @escaping (BaseView) -> Content) {
         Configurations.shared.body = { base in
