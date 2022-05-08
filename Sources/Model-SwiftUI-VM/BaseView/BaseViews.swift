@@ -24,7 +24,7 @@ public extension BaseView {
 //                    }
 //            }
         }.onAppear {
-            print(Configurations.shared.body?(self))
+            print(Configurations.shared.body(self))
         }
     }
 }
