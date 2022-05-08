@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension UNColor {
+public extension UNColor {
     func colorFrom(_ hex: String) -> UNColor {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0

@@ -7,8 +7,8 @@
 
 import SwiftUI
 #if canImport(UIKit)
-extension UIView {
-    public var uiImage: UIImage {
+public extension UIView {
+    var uiImage: UIImage {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
         return renderer.image { rendererContext in
             layer.render(in: rendererContext.cgContext)

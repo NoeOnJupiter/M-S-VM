@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension CIImage {
+public extension CIImage {
 #if canImport(AppKit)
     var nsImage: NSImage {
         let rep = NSCIImageRep(ciImage: self)

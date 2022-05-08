@@ -23,7 +23,7 @@ public typealias UNView = UIView
 public typealias UNView = NSView
 #endif
 
-enum ImageQuality: CGFloat {
+public enum ImageQuality: CGFloat {
     case lowest = 0
     case low = 0.25
     case medium = 0.5

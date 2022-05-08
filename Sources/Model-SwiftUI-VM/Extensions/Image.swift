@@ -8,7 +8,7 @@
 import SwiftUI
 
 #if canImport(UIKit)
-extension Image {
+public extension Image {
     func asData(_ quality: ImageQuality) -> Data? {
         return self.uiImage.asData(quality)
     }

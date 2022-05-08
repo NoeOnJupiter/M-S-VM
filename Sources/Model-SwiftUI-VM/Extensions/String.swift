@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-extension String {
+public extension String {
     var unColor: UNColor {
         var cString: String = self.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if cString.hasPrefix("#") {

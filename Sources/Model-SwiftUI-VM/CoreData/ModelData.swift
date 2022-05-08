@@ -10,7 +10,7 @@ import Combine
 import CoreData
 
 public class ModelData<T: Datable>: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
-    var publishedData = CurrentValueSubject<[T], Never>([])
+    public var publishedData = CurrentValueSubject<[T], Never>([])
     private let fetchController: NSFetchedResultsController<T.Object>
     override init() {
         let fetchRequest = T.Object.fetchRequest() as! NSFetchRequest<T.Object>

@@ -63,7 +63,7 @@ public extension View {
 }
 
 #if canImport(AppKit)
-class Size {
+public class Size {
     static var shared = Size()
     var size = (NSScreen.main?.visibleFrame ?? .zero).size
 }

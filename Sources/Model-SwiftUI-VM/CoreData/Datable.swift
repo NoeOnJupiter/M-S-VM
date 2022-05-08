@@ -66,7 +66,7 @@ public extension Datable {
     }
 }
 
-extension Array {
+public extension Array {
     func model<T: Datable>() -> [T] {
         return self.map({T.map(from: $0 as! T.Object)})
     }

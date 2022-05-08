@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension View {
+public extension View {
     var uiImage: UIImage {
         let controller = UIHostingController(rootView: self)
         controller.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)

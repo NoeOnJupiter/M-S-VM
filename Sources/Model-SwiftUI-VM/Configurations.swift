@@ -13,17 +13,17 @@ public class Configurations {
     init(_ colorScheme: ColorScheme) {
         self.colorScheme = colorScheme
     }
-    static var shared = Configurations(.light)
-    var colorScheme: ColorScheme
+    public static var shared = Configurations(.light)
+    public var colorScheme: ColorScheme
     var body: ((BaseView) -> AnyView)?
     var managedObjectContext: NSManagedObjectContext?
 //MARK: - Functions
-    static func makeBody<Content: View>(@ViewBuilder body: @escaping (BaseView) -> Content) {
+    public static func makeBody<Content: View>(@ViewBuilder body: @escaping (BaseView) -> Content) {
         Configurations.shared.body = { base in
             AnyView(body(base))
         }
     }
-    static func setObjectContext(_ managedObjectContext: NSManagedObjectContext) {
+    public static func setObjectContext(_ managedObjectContext: NSManagedObjectContext) {
         Configurations.shared.managedObjectContext = managedObjectContext
     }
 }

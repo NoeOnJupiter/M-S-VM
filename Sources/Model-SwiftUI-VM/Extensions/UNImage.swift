@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension UNImage {
+public extension UNImage {
     func asData(_ quality: ImageQuality) -> Data? {
 #if canImport(UIKit)
         return jpegData(compressionQuality: quality.rawValue)

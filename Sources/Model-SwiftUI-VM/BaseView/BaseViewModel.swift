@@ -11,36 +11,36 @@ import Combine
 public class BaseViewModel: NSObject, ObservableObject {
 //MARK: - Properties
 #if canImport(AppKit)
-    @Published var width = CGFloat(1000) {
+    @Published public var width = CGFloat(1000) {
         didSet {
             Size.shared.size.width = width
         }
     }
-    @Published var height = CGFloat(1000) {
+    @Published public var height = CGFloat(1000) {
         didSet {
             Size.shared.size.height = height
         }
     }
 #endif
-    @Published var error: BaseError? {
+    @Published public var error: BaseError? {
         didSet {
             DispatchQueue.main.asyncAfter(deadline: .now() + (error?.disappearanceRange ?? 0)) {
                 self.error = nil
             }
         }
     }
-    @Published var loading = Loading.stopped
-    var cancellables = Set<AnyCancellable>()
+    @Published public var loading = Loading.stopped
+    public var cancellables = Set<AnyCancellable>()
 //MARK: - Initializers
     required override init() {
     }
 }
 
-protocol BaseError {
+public protocol BaseError {
     var disappearanceRange: Double {get set}
 }
 
-enum Loading: Equatable {
+public enum Loading: Equatable {
     case loading, stopped
     case progress(Double)
 }
