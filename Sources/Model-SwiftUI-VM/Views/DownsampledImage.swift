@@ -13,12 +13,16 @@ public struct DownsampledImage: View {
     @State public var width: CGFloat?
     @State public var placeHolder: AnyView
     public let squared: Bool
-    public init(image: UNImage? = nil, height: CGFloat? = nil, width: CGFloat? = nil, squared: Bool = false, @ViewBuilder content: () -> some View = {Text("Error")}) {
-        self.height = height
-        self.width = width
-        self.oldImage = image
+    public init(image: UIImage? = nil, data: Data? = nil, height: CGFloat? = nil, width: CGFloat? = nil, squared: Bool = false, @ViewBuilder content: () -> some View = {Text("Error")}) {
         self.placeHolder = AnyView(content())
         self.squared = squared
+        self.height = height
+        self.width = width
+        if let data {
+            self.oldImage = UNImage(data: data)
+        }else if let image {
+            self.oldImage = image
+        }
     }
     public var body: some View {
         if let oldImage {
