@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct AnyImage {
+public struct AnyImage: Equatable {
 //MARK: - Properties
     public static var empty = AnyImage()
     public var data: Data?
