@@ -35,12 +35,12 @@ open class BaseViewModel: NSObject, ObservableObject {
     required override public init() {
     }
 //MARK: - Functions
-    public func invalidate() {
+    open func invalidate() {
     }
     @available(iOS 15.0, macOS 12.0, watchOS 8.0, *)
-    public func validateTask() async {
+    open func validateTask() async {
     }
-    public func validate() {
+    open func validate() {
     }
 }
 
