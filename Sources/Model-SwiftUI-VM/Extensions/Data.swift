@@ -47,4 +47,12 @@ extension Data {
         return UNImage(cgImage: downsampledImage)
 #endif
     }
+    var unImage: UNImage? {
+        get {
+            return UNImage(data: self)
+        }
+        set {
+            self = newValue?.asData(.high) ?? Data()
+        }
+    }
 }
