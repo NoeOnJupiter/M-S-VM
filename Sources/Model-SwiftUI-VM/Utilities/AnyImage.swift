@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct AnyImage: Equatable {
+public struct AnyImage {
 //MARK: - Properties
     public static var empty = AnyImage()
     public var data: Data?
@@ -15,7 +15,6 @@ public struct AnyImage: Equatable {
     public var unImage: UNImage?
 //MARK: - Private Initializers
     private init() {
-
     }
 }
 
@@ -42,5 +41,19 @@ public extension AnyImage {
         self.unImage = unImage
         self.image = Image(unImage: unImage)
         self.data = unImage.asData(.high)
+    }
+}
+
+//MARK: - Equatable
+extension AnyImage: Equatable {
+    public static func ==(lhs: AnyImage, rhs: AnyImage) -> Bool {
+        return lhs.data == rhs.data
+    }
+}
+
+//MARK: - Hashable
+extension AnyImage: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(data ?? Data())
     }
 }
