@@ -27,7 +27,7 @@ public protocol Datable {
     func delete()
 }
 
-extension Datable {
+public extension Datable {
 //MARK: - Mapping
     func map(from object: Object) -> Self {
         return Self.map(from: object)
@@ -110,7 +110,7 @@ extension Datable {
     }
 }
 
-extension Array where Element: NSManagedObject {
+public extension Array where Element: NSManagedObject {
     func model<T: Datable>() -> [T] {
         return self.map({T.map(from: $0 as! T.Object)})
     }
