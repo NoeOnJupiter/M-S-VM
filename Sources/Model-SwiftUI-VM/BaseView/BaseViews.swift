@@ -15,9 +15,9 @@ public extension BaseView {
             }else {
 
                Text("You should set the content of the Configurations using Configurations.makeBody")
-//                    .onAppear {
-//                        fatalError("You should set the content of the Configurations using Configurations.makeBody")
-//                    }
+                    .onAppear {
+                        fatalError("You should set the content of the Configurations using Configurations.makeBody")
+                    }
             }
         }.onAppear(perform: viewModel.validate)
         .onDisappear(perform: viewModel.invalidate)
