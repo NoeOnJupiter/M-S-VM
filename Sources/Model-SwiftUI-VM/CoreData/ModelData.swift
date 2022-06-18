@@ -36,13 +36,13 @@ public final class ModelData<T: Datable>: NSObject, ObservableObject, NSFetchedR
         guard let data = controller.fetchedObjects as? [T.Object] else {return}
         self.publishedData.value = data.model()
     }
-    func with(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = []) -> ModelData<T> {
+    public func with(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = []) -> ModelData<T> {
         return ModelData(predicate: predicate, sortDescriptors: sortDescriptors)
     }
-    func publisher() -> AnyPublisher<[T], Never> {
+    public func publisher() -> AnyPublisher<[T], Never> {
         return publishedData.eraseToAnyPublisher()
     }
-    func latest<Result: Hashable & Datable>(_ publisher: Published<[Result]>.Publisher) -> AnyPublisher<[Result], Never> {
+    public func latest<Result: Hashable & Datable>(_ publisher: Published<[Result]>.Publisher) -> AnyPublisher<[Result], Never> {
         return Publishers.CombineLatest(publisher.eraseToAnyPublisher(), publishedData.compactMap({$0.compactMap({$0 as? Result})}))
             .map { publisher1, publisher2 in
                 var combined = publisher1
