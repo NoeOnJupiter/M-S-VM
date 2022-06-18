@@ -10,15 +10,15 @@ import SwiftUI
 @available(iOS 16.0, *)
 public struct Media<Medium: Mediable>: View {
     public var height: CGFloat?
-    @Binding public var mediable: Medium?
+    @State public var mediable: Medium?
     public var width: CGFloat?
     public var placeHolder: AnyView
     public let squared: Bool
-    public init(_ mediable: Binding<Medium?>, height: CGFloat? = nil, width: CGFloat? = nil, squared: Bool = false, @ViewBuilder content: () -> some View = {Text("Error")}) {
+    public init(_ mediable: Medium?, height: CGFloat? = nil, width: CGFloat? = nil, squared: Bool = false, @ViewBuilder content: () -> some View = {Text("Error")}) {
+        self._mediable = State(wrappedValue: mediable)
         self.height = height
         self.width = width
         self.placeHolder = AnyView(content())
-        self._mediable = mediable
         self.squared = squared
     }
     public var body: some View {
@@ -77,7 +77,7 @@ public struct Media<Medium: Mediable>: View {
         }
     }
     public func squaredImage() -> Media {
-        return Media($mediable, height: height, width: width, squared: true) {
+        return Media(mediable, height: height, width: width, squared: true) {
             placeHolder
         }
     }

@@ -45,7 +45,7 @@ public struct DownsampledImage: View {
         }
     }
     public func squaredImage() -> DownsampledImage {
-        return DownsampledImage(image: self.$oldImage, height: height, width: width, squared: true) {
+        return DownsampledImage(image: self.oldImage, height: height, width: width, squared: true) {
             placeHolder
         }
     }
