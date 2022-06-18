@@ -9,14 +9,14 @@ import SwiftUI
 
 public struct DownsampledImage: View {
     @State public var height: CGFloat?
-    @Binding public var oldImage: UNImage?
+    @State public var oldImage: UNImage?
     @State public var width: CGFloat?
     @State public var placeHolder: AnyView
     public let squared: Bool
-    public init(image: Binding<UNImage?>? = .constant(nil), height: CGFloat? = nil, width: CGFloat? = nil, squared: Bool = false, @ViewBuilder content: () -> some View = {Text("Error")}) {
+    public init(image: UNImage? = nil, height: CGFloat? = nil, width: CGFloat? = nil, squared: Bool = false, @ViewBuilder content: () -> some View = {Text("Error")}) {
         self.height = height
         self.width = width
-        self._oldImage = image ?? Binding.constant(nil)
+        self.oldImage = image
         self.placeHolder = AnyView(content())
         self.squared = squared
     }
