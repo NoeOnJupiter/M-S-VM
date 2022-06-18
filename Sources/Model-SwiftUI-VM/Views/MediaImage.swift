@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 16.0, *)
-public struct Media<Medium: Mediable>: View {
+public struct MediaImage<Medium: Mediable>: View {
     public var height: CGFloat?
     @State public var mediable: Medium?
     public var width: CGFloat?
