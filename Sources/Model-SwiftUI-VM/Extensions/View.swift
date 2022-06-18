@@ -82,9 +82,6 @@ public extension View {
                 }
         )
     }
-}
-
-extension View {
     func framey(width: CGFloat, height: CGFloat, masterWidth: CGFloat? = nil, masterHeight: CGFloat? = nil, master: Bool) -> some View {
         if master {
             return self
