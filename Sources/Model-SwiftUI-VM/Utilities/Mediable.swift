@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 @available(iOS 16.0, *)
-public protocol Mediable {
+public protocol Mediabley {
     var anyImage: AnyImage {get set}
     var mediaState: MediaState {get set}
     var pickerItem: PhotosPickerItem? {get set}
