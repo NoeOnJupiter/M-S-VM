@@ -35,6 +35,21 @@ public enum DateInterval {
     case day, week, month, year
 }
 
-public enum MediaState {
+public enum MediaState: Equatable {
+    public var id: Int {
+        switch self {
+            case .empty:
+                return 0
+            case .loading:
+                return 1
+            case .success:
+                return 2
+            case .failure:
+                return 3
+        }
+    }
     case empty, loading, success(AnyImage), failure(Error)
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
