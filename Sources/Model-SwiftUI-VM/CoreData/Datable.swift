@@ -15,6 +15,7 @@ public protocol Datable {
     static func map(from object: Object) -> Self
     func map(from object: Object) -> Self
     func getObject(from object: Object, isUpdating: Bool) -> Object
+    func updateObject() -> Object
     static func getObject(for oID: UUID?) -> Object?
     static func model(for oID: UUID?) -> Self?
 //MARK: - Entity
@@ -67,6 +68,9 @@ public extension Datable {
         }
         let newObject = Object(context: viewContext)
         return newDatable.getObject(from: newObject, isUpdating: false)
+    }
+    func updateObject() -> Object {
+        return self.getObject(from: Self.getObject(for: self.oID) ?? Object(), isUpdating: true)
     }
 //MARK: - Writing
     func save() {
