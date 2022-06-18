@@ -76,8 +76,8 @@ public struct MediaImage<Medium: Mediable>: View {
             }
         }
     }
-    public func squaredImage() -> Media {
-        return Media(mediable, height: height, width: width, squared: true) {
+    public func squaredImage() -> MediaImage {
+        return MediaImage(mediable, height: height, width: width, squared: true) {
             placeHolder
         }
     }
