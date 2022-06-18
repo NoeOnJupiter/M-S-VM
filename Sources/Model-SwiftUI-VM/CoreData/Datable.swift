@@ -12,8 +12,8 @@ public protocol Datable {
     associatedtype Object: NSManagedObject
     var oID: UUID? {get set}
 //MARK: - Mapping
-    static func map(from object: Object) -> Self
-    func map(from object: Object) -> Self
+    static func map(from object: Object?) -> Self?
+    func map(from object: Object?) -> Self?
     func getObject(from object: Object, isUpdating: Bool) -> Object
     func updateObject() -> Object
     static func getObject(for oID: UUID?) -> Object?
@@ -30,7 +30,7 @@ public protocol Datable {
 
 public extension Datable {
 //MARK: - Mapping
-    func map(from object: Object) -> Self {
+    func map(from object: Object?) -> Self? {
         return Self.map(from: object)
     }
     static func getObject(for oID: UUID?) -> Object? {
@@ -116,6 +116,6 @@ public extension Datable {
 
 public extension Array {
     func model<T: Datable>() -> [T] {
-        return self.map({T.map(from: $0 as! T.Object)})
+        return self.compactMap({T.map(from: $0 as? T.Object)})
     }
 }
