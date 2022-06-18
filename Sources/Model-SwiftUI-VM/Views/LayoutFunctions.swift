@@ -23,41 +23,65 @@ public extension View {
 #endif
     }
     func leading() -> some View {
-        return HStack {
+        HStack {
             self
             Spacer()
         }
     }
     func trailing() -> some View {
-        return HStack {
+        HStack {
             Spacer()
             self
         }
     }
     func top() -> some View {
-        return VStack {
+        VStack {
             self
             Spacer()
         }
     }
+    func bottom() -> some View {
+        VStack {
+            Spacer()
+            self
+        }
+    }
     func centerV() -> some View {
-        return VStack {
+        VStack {
             Spacer()
             self
             Spacer()
         }
     }
     func centerH() -> some View {
-        return HStack {
+        HStack {
             Spacer()
             self
             Spacer()
         }
     }
-    func bottom() -> some View {
-        return VStack {
-            Spacer()
+    func header(@ViewBuilder _ header: @escaping () -> some View, spacing: Double = 5) -> some View {
+        VStack(spacing: spacing) {
+            header()
             self
+        }
+    }
+    func footer(@ViewBuilder _ footer: @escaping () -> some View, spacing: Double = 5) -> some View {
+        VStack(spacing: spacing) {
+            self
+            footer()
+        }
+    }
+    func leading(@ViewBuilder content: @escaping () -> some View) -> some View {
+        HStack {
+            content()
+            self
+        }
+    }
+    func trailing(@ViewBuilder content: @escaping () -> some View) -> some View {
+        HStack {
+            self
+            content()
         }
     }
 }

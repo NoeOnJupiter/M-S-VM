@@ -30,3 +30,11 @@ public enum ImageQuality: CGFloat {
     case high = 0.75
     case highest = 1
 }
+
+public enum DateInterval {
+    case day, week, month, year
+}
+
+public enum MediaState {
+    case empty, loading, success(AnyImage), failure(Error)
+}

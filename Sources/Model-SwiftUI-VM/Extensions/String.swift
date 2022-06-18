@@ -38,4 +38,7 @@ public extension String {
             return nil
         }
     }
+    subscript(i: Int) -> String {
+        return String(self[index(startIndex, offsetBy: i)])
+    }
 }

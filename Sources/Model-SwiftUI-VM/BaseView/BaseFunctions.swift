@@ -8,6 +8,11 @@
 import SwiftUI
 
 public extension BaseView {
+    func onTap(gesture: @escaping () -> Void) -> BaseView {
+        var baseView = self
+        baseView.gesture = gesture
+        return baseView
+    }
     func backgroundHidden() -> BaseView {
         var baseView = self
         baseView.isBackgroundHidden = true

@@ -9,16 +9,19 @@ import SwiftUI
 
 public struct BaseView: View {
 //MARK: - Properties
-    @Environment(\.colorScheme) var colorScheme
-    @ObservedObject public var viewModel: BaseViewModel
+    @Environment(\.editMode) public var editMode
+    @Environment(\.presentationMode) public var presentationMode
+    @Environment(\.colorScheme) public var colorScheme
+    @StateObject public var viewModel: BaseViewModel
     public let content: AnyView
     public var isBackgroundHidden: Bool
 #if canImport(AppKit)
     public var size: Bool
 #endif
+    public var gesture: (() -> Void)?
 //MARK: - Initializers
-    init(_ viewModel: BaseViewModel, @ViewBuilder content: () -> AnyView) {
-        self._viewModel = ObservedObject(wrappedValue: viewModel)
+    init(_ viewModel: some BaseViewModel, @ViewBuilder content: () -> AnyView) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self.content = content()
         self.isBackgroundHidden = false
 #if canImport(AppKit)

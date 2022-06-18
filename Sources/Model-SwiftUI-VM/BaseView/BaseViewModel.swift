@@ -34,6 +34,14 @@ public class BaseViewModel: NSObject, ObservableObject {
 //MARK: - Initializers
     required override public init() {
     }
+//MARK: - Functions
+    public func invalidate() {
+    }
+    @available(iOS 15.0, macOS 12.0, watchOS 8.0, *)
+    public func validateTask() async {
+    }
+    public func validate() {
+    }
 }
 
 public protocol BaseError {
@@ -43,4 +51,13 @@ public protocol BaseError {
 public enum Loading: Equatable {
     case loading, stopped
     case progress(Double)
+}
+
+public struct BaseAlert {
+    var title: String
+    var description: String
+    struct Action {
+        var title: String
+        var action: (() -> Void)?
+    }
 }

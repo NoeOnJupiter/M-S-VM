@@ -10,9 +10,13 @@ import CoreData
 
 public protocol Datable {
     associatedtype Object: NSManagedObject
+    var oID: UUID? {get set}
 //MARK: - Mapping
     static func map(from object: Object) -> Self
     func map(from object: Object) -> Self
+    func getObject(from object: Object, isUpdating: Bool) -> Object
+    static func getObject(for oID: UUID?) -> Object?
+    static func model(for oID: UUID?) -> Self?
 //MARK: - Entity
     var object: Object {get}
 //MARK: - Fetching
@@ -23,16 +27,53 @@ public protocol Datable {
     func delete()
 }
 
-public extension Datable {
+extension Datable {
 //MARK: - Mapping
     func map(from object: Object) -> Self {
         return Self.map(from: object)
+    }
+    static func getObject(for oID: UUID?) -> Object? {
+        guard let viewContext = Configurations.shared.managedObjectContext else {
+            fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
+        }
+        guard let fetchRequest = Object.fetchRequest() as? NSFetchRequest<Object>, let oID = oID else {
+            return nil
+        }
+        fetchRequest.predicate = NSPredicate(format: "oID = %@", "\(oID)")
+        guard let object = try? viewContext.fetch(fetchRequest).first else {
+            return nil
+        }
+        return object
+    }
+    static func model(for oID: UUID?) -> Self? {
+        guard let viewContext = Configurations.shared.managedObjectContext else {
+            fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
+        }
+        guard let fetchRequest = Object.fetchRequest() as? NSFetchRequest<Object>, let oID = oID else {
+            return nil
+        }
+        fetchRequest.predicate = NSPredicate(format: "oID = %@", "\(oID)")
+        guard let object = try? viewContext.fetch(fetchRequest).first else {
+            return nil
+        }
+        return Self.map(from: object)
+    }
+//MARK: - Entity
+    var object: Object {
+        var newDatable = self
+        newDatable.oID = nil
+        guard let viewContext = Configurations.shared.managedObjectContext else {
+            fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
+        }
+        let newObject = Object(context: viewContext)
+        return newDatable.getObject(from: newObject, isUpdating: false)
     }
 //MARK: - Writing
     func save() {
         guard let viewContext = Configurations.shared.managedObjectContext else {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
+        _ = object
         do {
             try viewContext.save()
         }catch {
@@ -44,8 +85,10 @@ public extension Datable {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
         viewContext.perform {
-            _ = object
             do {
+                guard let oID = oID else {return}
+                guard var toUpdate = Self.getObject(for: oID) else {return}
+                toUpdate = getObject(from: toUpdate, isUpdating: true)
                 try viewContext.save()
             }catch {
                 print(String(describing: error))
@@ -53,12 +96,13 @@ public extension Datable {
         }
     }
     func delete() {
+        guard let viewContext = Configurations.shared.managedObjectContext else {
+            fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
+        }
         do {
-            _ = object
-            guard let viewContext = Configurations.shared.managedObjectContext else {
-                fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
-            }
-            viewContext.delete(object)
+            guard let oID = oID else {return}
+            guard let toUpdate = Self.getObject(for: oID) else {return}
+            viewContext.delete(toUpdate)
             try viewContext.save()
         }catch {
             print(String(describing: error))
@@ -66,7 +110,7 @@ public extension Datable {
     }
 }
 
-public extension Array {
+extension Array where Element: NSManagedObject {
     func model<T: Datable>() -> [T] {
         return self.map({T.map(from: $0 as! T.Object)})
     }
