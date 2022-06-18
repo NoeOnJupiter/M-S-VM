@@ -12,7 +12,7 @@ import CoreData
 public final class ModelData<T: Datable>: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
     private var publishedData = CurrentValueSubject<[T], Never>([])
     private let fetchController: NSFetchedResultsController<T.Object>
-    private init(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) {
+    public init(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) {
         let fetchRequest = T.Object.fetchRequest() as! NSFetchRequest<T.Object>
         fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = sortDescriptors
