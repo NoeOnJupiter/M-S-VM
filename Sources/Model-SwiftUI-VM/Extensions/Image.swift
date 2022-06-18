@@ -8,9 +8,8 @@
 import SwiftUI
 
 public extension Image {
-#if canImport(UIKit)
     func asData(_ quality: ImageQuality) -> Data? {
-        return self.uiImage.asData(quality)
+        return self.unImage.asData(quality)
     }
     init(data: Data?, fallback: Image = Image(systemName: "camera")) {
         self.init("")
@@ -25,19 +24,11 @@ public extension Image {
             self = fallback
         }
     }
-#endif
     init(unImage: UNImage) {
 #if canImport(UIKit)
         self.init(uiImage: unImage)
 #elseif canImport(AppKit)
         self.init(nsImage: unImage)
-#endif
-    }
-    var unImage: UNImage {
-#if canImport(UIKit)
-        self.uiImage
-#elseif canImport(AppKit)
-        UNImage(named: "")
 #endif
     }
 }
