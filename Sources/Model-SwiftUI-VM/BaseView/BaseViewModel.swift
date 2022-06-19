@@ -49,7 +49,8 @@ public protocol BaseError {
 }
 
 public enum Loading: Equatable {
-    case loading, stopped
+    case loading(String? = nil)
+    case stopped
     case progress(Double)
 }
 
