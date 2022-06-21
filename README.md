@@ -20,8 +20,8 @@ This package is designed to simplify the development process of SwiftUI & the MV
 
  This Package is dedicated for SwiftUI, OS versions:
   * iOS 14.0+
-  * macOS 11+
-  * watchOS 7+
+  * macOS 11.0+
+  * watchOS 7.0+
  #### Note: I am working on adding SwiftUI 1 support. Note: Some features may not work for versions Preceeding SwiftUI 2.
   
 ## Installation
