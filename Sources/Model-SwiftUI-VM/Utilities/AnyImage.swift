@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct AnyImage {
+public struct AnyImage: View {
 //MARK: - Properties
     public static var empty = AnyImage()
     public var data: Data?
@@ -15,6 +15,9 @@ public struct AnyImage {
     public var unImage: UNImage?
 //MARK: - Private Initializers
     private init() {
+    }
+    public var body: some View {
+        image ?? Image("photo.fill")
     }
 }
 
