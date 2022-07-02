@@ -19,7 +19,7 @@ public extension BaseView {
         return baseView
     }
 #if canImport(UIKit)
-    func tabBarHidden(viewModel: BaseViewModel) -> BaseView {
+    func tabBarHidden(_ viewModel: BaseViewModel) -> BaseView {
         viewModel.isTabBarHidden = true
         return self
     }
