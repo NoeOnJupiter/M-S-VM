@@ -22,7 +22,9 @@ let package = Package(
     
         .target(
             name: "Model-SwiftUI-VM",
-            dependencies: []),
+            dependencies: [
+                .product(name: "Introspect", package: "SwiftUI-Introspect")
+            ]),
         .testTarget(
             name: "Model-SwiftUI-VMTests",
             dependencies: ["Model-SwiftUI-VM"]),
