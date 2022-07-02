@@ -22,9 +22,7 @@ public extension BaseView {
             }
         }.onAppear(perform: viewModel.validate)
         .onDisappear(perform: viewModel.invalidate)
-        .introspectTabBarController { tabBarController in
-            viewModel.tabBarController = tabBarController
-        }.onTask {
+        .onTask {
             if #available(iOS 15.0, macOS 12.0, watchOS 8.0, *) {
                 await viewModel.validateTask()
             }

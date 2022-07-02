@@ -18,12 +18,6 @@ public extension BaseView {
         baseView.isBackgroundHidden = true
         return baseView
     }
-#if canImport(UIKit)
-    func tabBarHidden(_ viewModel: BaseViewModel) -> BaseView {
-        viewModel.isTabBarHidden = true
-        return self
-    }
-#endif
 #if canImport(AppKit)
     public func framey(width: CGFloat? = nil, height: CGFloat? = nil) -> BaseView<Content> {
         var baseView = self
