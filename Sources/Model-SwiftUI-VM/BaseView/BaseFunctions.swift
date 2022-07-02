@@ -19,11 +19,9 @@ public extension BaseView {
         return baseView
     }
 #if canImport(UIKit)
-    func tabBarHidden() -> BaseView {
-        var baseView = self
-        baseView.viewModel.isTabBarHidden = true
-        baseView.isBackgroundHidden = true
-        return baseView
+    func tabBarHidden(viewModel: BaseViewModel) -> BaseView {
+        viewModel.isTabBarHidden = true
+        return self
     }
 #endif
 #if canImport(AppKit)
