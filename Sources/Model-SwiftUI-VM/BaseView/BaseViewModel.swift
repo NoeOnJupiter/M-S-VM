@@ -23,8 +23,12 @@ open class BaseViewModel: NSObject, ObservableObject {
     }
 #endif
 #if canImport(UIKit)
-    @Published var isTabBarHidden = false
-    var tabBarController: UITabBarController?
+    @Published open var isTabBarHidden = false {
+        didSet {
+            tabBarController?.tabBar.isHidden = isTabBarHidden
+        }
+    }
+    open var tabBarController: UITabBarController?
 #endif
     @Published public var error: (any BaseError)? {
         didSet {
