@@ -16,6 +16,7 @@ let package = Package(
             targets: ["Model-SwiftUI-VM"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/siteline/SwiftUI-Introspect", "0.1.4"..<"1.0.0")
     ],
     targets: [
     

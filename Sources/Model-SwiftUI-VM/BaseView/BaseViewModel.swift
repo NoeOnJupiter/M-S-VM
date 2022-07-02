@@ -22,6 +22,10 @@ open class BaseViewModel: NSObject, ObservableObject {
         }
     }
 #endif
+#if canImport(UIKit)
+    @Published var isTabBarHidden = false
+    var tabBarController: UITabBarController?
+#endif
     @Published public var error: (any BaseError)? {
         didSet {
             DispatchQueue.main.asyncAfter(deadline: .now() + (error?.disappearanceRange ?? 0)) {
@@ -36,11 +40,17 @@ open class BaseViewModel: NSObject, ObservableObject {
     }
 //MARK: - Functions
     open func invalidate() {
+#if canImport(UIKit)
+        tabBarController?.tabBar.isHidden = false
+#endif
     }
     @available(iOS 15.0, macOS 12.0, watchOS 8.0, *)
     open func validateTask() async {
     }
     open func validate() {
+#if canImport(UIKit)
+        tabBarController?.tabBar.isHidden = isTabBarHidden
+#endif
     }
 }
 
