@@ -19,7 +19,7 @@ public extension BaseView {
         return baseView
     }
 #if canImport(AppKit)
-    public func framey(width: CGFloat? = nil, height: CGFloat? = nil) -> BaseView<Content> {
+    func framey(width: CGFloat? = nil, height: CGFloat? = nil) -> BaseView {
         var baseView = self
         baseView.size = !(width == nil && height == nil)
         if let width = width {

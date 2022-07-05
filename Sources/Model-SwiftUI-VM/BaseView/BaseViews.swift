@@ -13,8 +13,10 @@ public extension BaseView {
         GeometryReader { proxy in
             if let contentBody = Configurations.shared.body {
                 contentBody(self)
+#if canImport(AppKit)
+                    .bind(proxy: proxy, viewModel: viewModel, bindable: !size)
+#endif
             }else {
-
                Text("You should set the content of the Configurations using Configurations.makeBody")
                     .onAppear {
                         fatalError("You should set the content of the Configurations using Configurations.makeBody")
@@ -27,8 +29,5 @@ public extension BaseView {
                 await viewModel.validateTask()
             }
         }.bindColors(colorScheme)
-#if canImport(AppKit)
-        .bind(proxy: proxy, viewModel: viewModel, bindable: !size)
-#endif
     }
 }

@@ -33,7 +33,11 @@ public extension String {
         let timestamp = CMTime(seconds: 1, preferredTimescale: 60)
         do {
             let imageRef = try generator.copyCGImage(at: timestamp, actualTime: nil)
+            #if canImport(UIKit)
             return UNImage(cgImage: imageRef)
+            #elseif canImport(AppKit)
+            return UNImage(cgImage: imageRef, size: CGSize(width: imageRef.width, height: imageRef.height))
+            #endif
         }catch {
             return nil
         }

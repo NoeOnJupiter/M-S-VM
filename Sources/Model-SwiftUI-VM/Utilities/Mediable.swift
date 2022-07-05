@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-@available(iOS 16.0, *)
+@available(iOS 16.0, macOS 13.0, *)
 public protocol Mediabley {
     var anyImage: AnyImage {get set}
     var mediaState: MediaState {get set}
