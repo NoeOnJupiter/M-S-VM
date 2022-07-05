@@ -9,7 +9,9 @@ import SwiftUI
 
 public struct BaseView: View {
 //MARK: - Properties
+#if canImport(UIKit)
     @Environment(\.editMode) public var editMode
+#endif
     @Environment(\.presentationMode) public var presentationMode
     @Environment(\.colorScheme) public var colorScheme
     @StateObject public var viewModel: BaseViewModel
