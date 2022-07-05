@@ -7,8 +7,8 @@ let package = Package(
     name: "Model-SwiftUI-VM",
     platforms: [
            .iOS(.v14),
-           .macOS(.v10_15),
-           .watchOS(.v6)
+           .macOS(.v11),
+           .watchOS(.v7)
        ],
     products: [
         .library(
