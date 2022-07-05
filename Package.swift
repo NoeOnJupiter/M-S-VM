@@ -6,9 +6,9 @@ import PackageDescription
 let package = Package(
     name: "Model-SwiftUI-VM",
     platforms: [
-           .iOS(.v16),
-           .macOS(.v13),
-           .watchOS(.v9)
+           .iOS(.v15),
+           .macOS(.v12),
+           .watchOS(.v8)
        ],
     products: [
         .library(
