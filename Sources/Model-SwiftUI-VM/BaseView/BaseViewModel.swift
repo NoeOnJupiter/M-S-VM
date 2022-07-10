@@ -24,6 +24,7 @@ open class BaseViewModel: NSObject, ObservableObject {
 #endif
     @Published public var error: (any BaseError)? {
         didSet {
+            guard error != nil else {return}
             DispatchQueue.main.asyncAfter(deadline: .now() + (error?.disappearanceRange ?? 0)) {
                 self.error = nil
             }
