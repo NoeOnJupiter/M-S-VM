@@ -34,7 +34,10 @@ public extension Datable {
         return object
     }//
 //MARK: - Entity
-    private var object: Object {
+    var updatedObject: Object {
+        return self.getObject(from: Self.getObject(for: self.id) ?? Object(), isUpdating: true)
+    }
+    var object: Object {
         guard let viewContext = Configurations.shared.managedObjectContext else {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
