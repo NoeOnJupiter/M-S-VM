@@ -10,67 +10,37 @@ import CoreData
 
 public protocol Datable {
     associatedtype Object: NSManagedObject
-    var oID: UUID? {get set}
+    var id: UUID? {get set}
 //MARK: - Mapping
     static func map(from object: Object?) -> Self?
-    func map(from object: Object?) -> Self?
     func getObject(from object: Object, isUpdating: Bool) -> Object
-    func updateObject() -> Object
-    static func getObject(for oID: UUID?) -> Object?
-    static func model(for oID: UUID?) -> Self?
-//MARK: - Entity
-    var object: Object {get}
 //MARK: - Fetching
     static var modelData: ModelData<Self> {get}
-//MARK: - Writing
-    func save()
-    func update()
-    func delete()
 }
 
 public extension Datable {
 //MARK: - Mapping
-    func map(from object: Object?) -> Self? {
-        return Self.map(from: object)
-    }
-    static func getObject(for oID: UUID?) -> Object? {
+    static private func getObject(for id: UUID?) -> Object? {
         guard let viewContext = Configurations.shared.managedObjectContext else {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
-        guard let fetchRequest = Object.fetchRequest() as? NSFetchRequest<Object>, let oID = oID else {
+        guard let fetchRequest = Object.fetchRequest() as? NSFetchRequest<Object>, let id = id else {
             return nil
         }
-        fetchRequest.predicate = NSPredicate(format: "oID = %@", "\(oID)")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", "\(id)")
         guard let object = try? viewContext.fetch(fetchRequest).first else {
             return nil
         }
         return object
-    }
-    static func model(for oID: UUID?) -> Self? {
-        guard let viewContext = Configurations.shared.managedObjectContext else {
-            fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
-        }
-        guard let fetchRequest = Object.fetchRequest() as? NSFetchRequest<Object>, let oID = oID else {
-            return nil
-        }
-        fetchRequest.predicate = NSPredicate(format: "oID = %@", "\(oID)")
-        guard let object = try? viewContext.fetch(fetchRequest).first else {
-            return nil
-        }
-        return Self.map(from: object)
-    }
+    }//
 //MARK: - Entity
-    var object: Object {
-        var newDatable = self
-        newDatable.oID = nil
+    private var object: Object {
         guard let viewContext = Configurations.shared.managedObjectContext else {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
-        let newObject = Object(context: viewContext)
-        return newDatable.getObject(from: newObject, isUpdating: false)
-    }
-    func updateObject() -> Object {
-        return self.getObject(from: Self.getObject(for: self.oID) ?? Object(), isUpdating: true)
+        let newObject = self.getObject(from: Object(context: viewContext), isUpdating: false)
+        newObject.setValue(nil, forKey: "id")
+        return newObject
     }
 //MARK: - Writing
     func save() {
@@ -90,8 +60,8 @@ public extension Datable {
         }
         viewContext.perform {
             do {
-                guard let oID = oID else {return}
-                guard var toUpdate = Self.getObject(for: oID) else {return}
+                guard let id = id else {return}
+                guard var toUpdate = Self.getObject(for: id) else {return}
                 toUpdate = getObject(from: toUpdate, isUpdating: true)
                 try viewContext.save()
             }catch {
@@ -104,8 +74,8 @@ public extension Datable {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
         do {
-            guard let oID = oID else {return}
-            guard let toUpdate = Self.getObject(for: oID) else {return}
+            guard let id = id else {return}
+            guard let toUpdate = Self.getObject(for: id) else {return}
             viewContext.delete(toUpdate)
             try viewContext.save()
         }catch {
