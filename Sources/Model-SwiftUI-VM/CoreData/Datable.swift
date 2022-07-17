@@ -10,7 +10,7 @@ import CoreData
 
 public protocol Datable {
     associatedtype Object: NSManagedObject
-    var id: UUID? {get set}
+    var oid: UUID? {get set}
 //MARK: - Mapping
     static func map(from object: Object?) -> Self?
     func getObject(from object: Object, isUpdating: Bool) -> Object
@@ -20,6 +20,14 @@ public protocol Datable {
 
 public extension Datable {
 //MARK: - Mapping
+    var id: UUID? {
+        get {
+            return oid
+        }
+        set {
+            oid = newValue
+        }
+    }
     static func latestObject(for id: UUID?) -> Object? {
         guard let viewContext = Configurations.shared.managedObjectContext else {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
