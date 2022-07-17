@@ -50,9 +50,10 @@ public extension Datable {
         guard let viewContext = Configurations.shared.managedObjectContext else {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
-        let newObject = self.getObject(from: Object(context: viewContext), isUpdating: false)
-        newObject.setValue(nil, forKey: "oid")
-        return newObject
+        
+        let newObject = self
+        newObject.oid = nil
+        return newObject.getObject(from: Object(context: viewContext), isUpdating: false)
     }
 //MARK: - Writing
     func save() {
