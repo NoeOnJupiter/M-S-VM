@@ -20,8 +20,9 @@ public extension Datable where Self: Iterable {
         }
         properties.forEach { property in
             let value = property.value
-            let objectType = object.value(forKey: property.key)
-            if property.key == "oid" {
+            if let value = value as? (any Rawable) {
+                object.setValue(value.raw, forKey: property.key)
+            }else if property.key == "oid" {
                 let newValue = value as? UUID ?? UUID()
                 object.setValue(newValue, forKey: property.key)
             }else if let datableValue = value as? (any Datable) {
