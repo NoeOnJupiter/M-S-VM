@@ -19,11 +19,11 @@ public extension Datable where Self: Iterable {
             return object
         }
         properties.forEach { property in
-            var value = property.value
+            let value = property.value
             let objectType = object.value(forKey: property.key)
             if property.key == "oid" {
                 let newValue = value as? UUID ?? UUID()
-                value = newValue
+                object.setValue(newValue, forKey: property.key)
             }else if let datableValue = value as? (any Datable), objectType is NSManagedObject {
                 if datableValue.oid == nil || oid == nil {
                     object.setValue(datableValue.object, forKey: property.key)
