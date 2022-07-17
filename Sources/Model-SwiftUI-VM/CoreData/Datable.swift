@@ -20,7 +20,7 @@ public protocol Datable {
 
 public extension Datable {
 //MARK: - Mapping
-    static private func getObject(for id: UUID?) -> Object? {
+    static func latestObject(for id: UUID?) -> Object? {
         guard let viewContext = Configurations.shared.managedObjectContext else {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
@@ -35,7 +35,7 @@ public extension Datable {
     }//
 //MARK: - Entity
     var updatedObject: Object {
-        return self.getObject(from: Self.getObject(for: self.id) ?? Object(), isUpdating: true)
+        return self.getObject(from: Self.latestObject(for: self.id) ?? Object(), isUpdating: true)
     }
     var object: Object {
         guard let viewContext = Configurations.shared.managedObjectContext else {
@@ -64,7 +64,7 @@ public extension Datable {
         viewContext.perform {
             do {
                 guard let id = id else {return}
-                guard var toUpdate = Self.getObject(for: id) else {return}
+                guard var toUpdate = Self.latestObject(for: id) else {return}
                 toUpdate = getObject(from: toUpdate, isUpdating: true)
                 try viewContext.save()
             }catch {
@@ -78,7 +78,7 @@ public extension Datable {
         }
         do {
             guard let id = id else {return}
-            guard let toUpdate = Self.getObject(for: id) else {return}
+            guard let toUpdate = Self.latestObject(for: id) else {return}
             viewContext.delete(toUpdate)
             try viewContext.save()
         }catch {
