@@ -36,7 +36,7 @@ public extension Datable {
         guard let fetchRequest = Object.fetchRequest() as? NSFetchRequest<Object>, let id = id else {
             return nil
         }
-        fetchRequest.predicate = NSPredicate(format: "id = %@", "\(id)")
+        fetchRequest.predicate = NSPredicate(format: "oid = %@", "\(id)")
         guard let object = try? viewContext.fetch(fetchRequest).first else {
             return nil
         }
@@ -44,14 +44,14 @@ public extension Datable {
     }//
 //MARK: - Entity
     var updatedObject: Object {
-        return self.getObject(from: Self.latestObject(for: self.id) ?? Object(), isUpdating: true)
+        return self.getObject(from: Self.latestObject(for: self.oid) ?? Object(), isUpdating: true)
     }
     var object: Object {
         guard let viewContext = Configurations.shared.managedObjectContext else {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
         let newObject = self.getObject(from: Object(context: viewContext), isUpdating: false)
-        newObject.setValue(nil, forKey: "id")
+        newObject.setValue(nil, forKey: "oid")
         return newObject
     }
 //MARK: - Writing
@@ -72,8 +72,8 @@ public extension Datable {
         }
         viewContext.perform {
             do {
-                guard let id = id else {return}
-                guard var toUpdate = Self.latestObject(for: id) else {return}
+                guard let oid = oid else {return}
+                guard var toUpdate = Self.latestObject(for: oid) else {return}
                 toUpdate = getObject(from: toUpdate, isUpdating: true)
                 try viewContext.save()
             }catch {
@@ -86,8 +86,8 @@ public extension Datable {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
         do {
-            guard let id = id else {return}
-            guard let toUpdate = Self.latestObject(for: id) else {return}
+            guard let oid = oid else {return}
+            guard let toUpdate = Self.latestObject(for: oid) else {return}
             viewContext.delete(toUpdate)
             try viewContext.save()
         }catch {
