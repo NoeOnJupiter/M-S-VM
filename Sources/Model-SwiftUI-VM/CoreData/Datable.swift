@@ -51,7 +51,7 @@ public extension Datable {
             fatalError("You should set the ViewContext of the Configurations using Configurations.setObjectContext")
         }
         
-        let newObject = self
+        var newObject = self
         newObject.oid = nil
         return newObject.getObject(from: Object(context: viewContext), isUpdating: false)
     }
