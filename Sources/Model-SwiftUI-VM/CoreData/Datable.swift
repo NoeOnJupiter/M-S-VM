@@ -8,9 +8,10 @@
 import Foundation
 import CoreData
 
-public protocol Datable {
+public protocol Datable: Identifiable {
     associatedtype Object: NSManagedObject
     var oid: UUID? {get set}
+    var id: UUID? {get set}
 //MARK: - Mapping
     static func map(from object: Object?) -> Self?
     func getObject(from object: Object, isUpdating: Bool) -> Object
