@@ -38,8 +38,9 @@ public extension Datable where Self: Iterable {
                     return subValue.updatedObject
                 })
                 object.setValue(set, forKey: property.key)
+            }else {
+                object.setValue(value, forKey: property.key)
             }
-            object.setValue(value, forKey: property.key)
         }
         return object
     }
