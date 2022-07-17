@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol Rawable {
+public protocol Rawable {
     var raw: Any {get}
 }
